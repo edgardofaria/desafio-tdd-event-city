@@ -15,7 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.devsuperior.bds02.dto.EventDTO;
+import com.devsuperior.bds02.dto.EventRequest;
 
 import tools.jackson.databind.ObjectMapper;
 
@@ -35,8 +35,8 @@ public class EventControllerIT {
 
 		long existingId = 1L;
 		
-		EventDTO dto = new EventDTO(null, "Expo XP", LocalDate.of(2021, 5, 18), "https://expoxp.com.br", 7L);
-		String jsonBody = objectMapper.writeValueAsString(dto);
+		EventRequest request = new EventRequest("Expo XP", LocalDate.of(2021, 5, 18), "https://expoxp.com.br", 7L);
+		String jsonBody = objectMapper.writeValueAsString(request);
 		
 		ResultActions result =
 				mockMvc.perform(put("/events/{id}", existingId)
@@ -58,8 +58,8 @@ public class EventControllerIT {
 
 		long nonExistingId = 1000L;
 		
-		EventDTO dto = new EventDTO(null, "Expo XP", LocalDate.of(2021, 5, 18), "https://expoxp.com.br", 7L);
-		String jsonBody = objectMapper.writeValueAsString(dto);
+		EventRequest request = new EventRequest("Expo XP", LocalDate.of(2021, 5, 18), "https://expoxp.com.br", 7L);
+		String jsonBody = objectMapper.writeValueAsString(request);
 		
 		ResultActions result =
 				mockMvc.perform(put("/events/{id}", nonExistingId)

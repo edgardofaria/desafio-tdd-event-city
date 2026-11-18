@@ -16,7 +16,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.devsuperior.bds02.dto.CityDTO;
+import com.devsuperior.bds02.dto.CityRequest;
 
 import tools.jackson.databind.ObjectMapper;
 
@@ -39,15 +39,15 @@ public class CityControllerIT {
 					.contentType(MediaType.APPLICATION_JSON));
 
 		result.andExpect(status().isOk());
-		result.andExpect(jsonPath("$[0].name").value("Belo Horizonte"));
-		result.andExpect(jsonPath("$[1].name").value("Belém"));
-		result.andExpect(jsonPath("$[2].name").value("Brasília"));
+		result.andExpect(jsonPath("$.content[0].name").value("Belo Horizonte"));
+		result.andExpect(jsonPath("$.content[1].name").value("Belém"));
+		result.andExpect(jsonPath("$.content[2].name").value("Brasília"));
 	}
 	
 	@Test
 	public void insertShouldInsertResource() throws Exception {
 
-		CityDTO dto = new CityDTO(null, "Recife");
+		CityRequest dto = new CityRequest("Recife");
 		String jsonBody = objectMapper.writeValueAsString(dto);
 		
 		ResultActions result =
